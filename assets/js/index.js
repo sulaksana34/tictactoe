@@ -1,5 +1,5 @@
 /**
- * TicTacToe v1.1.0
+ * TicTacToe v1.2.0
  * 
  * TicTacToe is a two-player game in which the objective
  * is to take turns and mark the correct spaces in a 3x3 grid.
@@ -159,6 +159,7 @@ const findRandom = () => {
 }
 
 const findCenter = () => {
+  console.log("findCenter() init");
   if(squares[4].classList.contains("selected"))
     return false;
 
@@ -169,6 +170,7 @@ const findCenter = () => {
 }
 
 const findCorner = () => {
+  console.log("findCorner() init");
   const targetSquare = [];
 
   cornerSquare.forEach(i => {
@@ -189,12 +191,170 @@ const findCorner = () => {
   return true;
 }
 
-const findWin = () => {
-  
+const checkSelected = (i) => {
+  if(squares[i].classList.contains("by_player"))
+    return true
 }
 
-const findBlock = () => {
+const findBlock = (idx) => {
+  console.log("findBlock() init");
+  let nextStep;
 
+  switch(idx) {
+    case 0:
+      if(checkSelected(1))
+        nextStep = 2;
+
+      if(checkSelected(2))
+        nextStep = 1;
+      
+      if(checkSelected(3))
+        nextStep = 6;
+
+      if(checkSelected(4))
+        nextStep = 8;
+
+      if(checkSelected(6))
+        nextStep = 3;
+
+      if(checkSelected(8))
+        nextStep = 4;
+
+      break;
+    case 1:
+      if(checkSelected(0))
+        nextStep = 2;
+
+      if(checkSelected(2))
+        nextStep = 0;
+      
+      if(checkSelected(4))
+        nextStep = 7;
+
+      if(checkSelected(7))
+        nextStep = 4;
+
+      break;
+    case 2:
+      if(checkSelected(0))
+        nextStep = 1;
+
+      if(checkSelected(1))
+        nextStep = 0;
+      
+      if(checkSelected(4))
+        nextStep = 6;
+
+      if(checkSelected(6))
+        nextStep = 4;
+
+      if(checkSelected(5))
+        nextStep = 8;
+
+      if(checkSelected(8))
+        nextStep = 5;
+
+      break;
+    case 3:
+      if(checkSelected(0))
+        nextStep = 6;
+
+      if(checkSelected(6))
+        nextStep = 0;
+      
+      if(checkSelected(4))
+        nextStep = 5;
+
+      if(checkSelected(5))
+        nextStep = 4;
+
+      break;
+    case 5:
+      if(checkSelected(2))
+        nextStep = 8;
+
+      if(checkSelected(8))
+        nextStep = 2;
+      
+      if(checkSelected(3))
+        nextStep = 4;
+
+      if(checkSelected(4))
+        nextStep = 3;
+        
+      break;
+    case 6:
+      if(checkSelected(0))
+        nextStep = 3;
+
+      if(checkSelected(3))
+        nextStep = 0;
+      
+      if(checkSelected(2))
+        nextStep = 4;
+
+      if(checkSelected(4))
+        nextStep = 2;
+
+      if(checkSelected(7))
+        nextStep = 8;
+
+      if(checkSelected(8))
+        nextStep = 7;
+
+      break;
+    case 7:
+      if(checkSelected(1))
+        nextStep = 4;
+
+      if(checkSelected(4))
+        nextStep = 1;
+      
+      if(checkSelected(6))
+        nextStep = 8;
+
+      if(checkSelected(8))
+        nextStep = 6;
+
+      break;
+    case 8:
+      if(checkSelected(0))
+        nextStep = 4;
+
+      if(checkSelected(4))
+        nextStep = 0;
+      
+      if(checkSelected(2))
+        nextStep = 5;
+
+      if(checkSelected(5))
+        nextStep = 2;
+
+      if(checkSelected(6))
+        nextStep = 7;
+
+      if(checkSelected(7))
+        nextStep = 6;
+        
+      break;
+    default:
+      break;
+  }
+
+  if(nextStep === undefined) {
+    findCorner();
+    return true;
+  }
+
+  if(squares[nextStep].classList.contains("selected")) {
+    findCorner();
+    return true;
+  }
+
+  squares[nextStep].innerHTML = player === 0 ? "X" : "O";
+  squares[nextStep].classList.add("selected", "by_cpu");
+
+  return true;
 }
 
 const cpuTurn = (lastMove) => {
@@ -205,7 +365,7 @@ const cpuTurn = (lastMove) => {
 
   setTimeout(() => {
     if(!findCenter())
-      if(!findCorner())
+      if(!findBlock(lastMove))
         findRandom();
 
     if(checkWin()) {
