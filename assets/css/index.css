@@ -1,0 +1,169 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.game-mode {
+  margin-top: 3vh;
+  margin-left: 5vh;
+  width: 60vh;
+  text-align: center;
+}
+
+.scoreboard {
+  width: 50vh;
+  margin: 0px 5vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.scoreboard h4 {
+  margin-top: 3vh;
+  margin-bottom: 0px;
+}
+
+.container {
+  margin: 3vh 5vh;
+  width: 60vh;
+  height: 60vh;
+  display: grid;
+  grid-template: repeat(3, 20vh) / repeat(3, 20vh);
+}
+
+.container .square {
+  border: 4px solid aqua;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12vh;
+  color: #333;
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.container .square:hover {
+  background-color: rgb(0, 255, 255, .2);
+}
+
+.container .square.selected {
+  cursor: default;
+  pointer-events: none;
+}
+
+.container .square.selected:hover {
+  background-color: transparent;
+}
+
+.container .square.selected.won {
+  background-color: rgba(27, 192, 27, 0.2);
+}
+
+.container .square:nth-child(1) {
+  border-top: none;
+  border-left: none;
+}
+
+.container .square:nth-child(2) {
+  border-top: none;
+}
+
+.container .square:nth-child(3) {
+  border-top: none;
+  border-right: none;
+}
+
+.container .square:nth-child(4) {
+  border-left: none;
+}
+
+.container .square:nth-child(6) {
+  border-right: none;
+}
+
+.container .square:nth-child(7) {
+  border-left: none;
+  border-bottom: none;
+}
+
+.container .square:nth-child(8) {
+  border-bottom: none;
+}
+
+.container .square:nth-child(9) {
+  border-right: none;
+  border-bottom: none;
+}
+
+.container.done .square {
+  cursor: default;
+  pointer-events: none !important;
+  background-color: transparent;
+}
+
+.divider {
+  width: 60vh;
+  margin-right: auto;
+  margin-left: 5vh;
+}
+
+.turnboard {
+  width: 60vh;
+  margin-left: 5vh;
+  text-align: center;
+}
+
+.turnboard h2 {
+  color: green;
+}
+
+.btn {
+	border: 2px solid transparent;
+	padding: 8px 16px;
+	border-radius: 4px;
+	cursor: pointer;
+  transition: all .15s;
+}
+
+.btn-restart {
+	background-color: #fbcc95;
+}
+
+.btn-restart:hover {
+  background-color: #ddb383;
+}
+
+.btn-primary {
+  background-color: #6cd3d3;
+}
+
+.btn-primary:hover {
+  background-color: #59b3b3;
+}
+
+.btn-outline-primary {
+  background-color: transparent;
+  border-color: #6cd3d3;
+}
+
+.btn-outline-primary:hover {
+  background-color: #ccffff;
+}
+
+@media screen and (max-width: 768px) {
+  .game-mode {
+    width: 100%;
+    margin: 3vh auto 0px;
+  }
+
+  .container {
+    margin: 3vh auto;
+  }
+
+  .divider {
+  margin: auto;
+  }
+
+  .turnboard {
+    width: 100%;
+    margin-left: auto;
+  }
+}
