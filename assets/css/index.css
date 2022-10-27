@@ -155,7 +155,11 @@ body {
   }
 
   .container {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
     margin: 3vh auto;
+    grid-template: repeat(3, auto) / repeat(3, auto);
   }
 
   .divider {

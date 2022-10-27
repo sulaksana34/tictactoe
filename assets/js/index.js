@@ -1,5 +1,5 @@
 /**
- * TicTacToe v1.2.0
+ * TicTacToe v1.2.2
  * 
  * TicTacToe is a two-player game in which the objective
  * is to take turns and mark the correct spaces in a 3x3 grid.
@@ -338,15 +338,11 @@ const findBlock = (idx) => {
       break;
   }
 
-  if(nextStep === undefined) {
-    findCorner();
-    return true;
-  }
+  if(nextStep === undefined)
+    return false;
 
-  if(squares[nextStep].classList.contains("selected")) {
-    findCorner();
-    return true;
-  }
+  if(squares[nextStep].classList.contains("selected"))
+    return false;
 
   squares[nextStep].innerHTML = player === 0 ? "X" : "O";
   squares[nextStep].classList.add("selected", "by_cpu");
@@ -363,7 +359,7 @@ const cpuTurn = (lastMove) => {
   setTimeout(() => {
     if(!findCenter())
       if(!findBlock(lastMove))
-        findRandom();
+        findCorner();
 
     if(checkWin()) {
       p2Score += 1;
