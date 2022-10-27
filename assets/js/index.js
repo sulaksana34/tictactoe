@@ -1,5 +1,5 @@
 /**
- * TicTacToe v1.0.0
+ * TicTacToe v1.1.0
  * 
  * TicTacToe is a two-player game in which the objective
  * is to take turns and mark the correct spaces in a 3x3 grid.
@@ -30,13 +30,17 @@ const winPattern = [
   [0, 4, 8],
   [2, 4, 6],
 ];
+
+const cornerSquare = [0, 2, 6, 8];
+
 const players = dualPlayer ? ["Player 1", "Player 2"] : ["Player", "CPU"];
 let player = 0;
 let winCounter;
 let wonPattern;
 
 const container = document.querySelector(".container");
-const squares = [...document.querySelectorAll(".container .square")];
+const squares = document.querySelectorAll(".container .square");
+const squaresLength = squares.length;
 const displayName = document.querySelector("#player");
 displayName.innerHTML = players[player];
 
@@ -143,22 +147,67 @@ const checkDraw = () => {
   container.classList.add("done");
 }
 
-const cpuTurn = () => {
+const findRandom = () => {
+  const availSquares = document.querySelectorAll(".container .square:not(.selected)");
+
+  if(availSquares.length === 0)
+    return
+
+  const index = getRandomInt(availSquares.length-1);
+  availSquares[index].innerHTML = player === 0 ? "X" : "O";
+  availSquares[index].classList.add("selected", "by_cpu");
+}
+
+const findCenter = () => {
+  if(squares[4].classList.contains("selected"))
+    return false;
+
+  squares[4].innerHTML = player === 0 ? "X" : "O";
+  squares[4].classList.add("selected", "by_cpu");
+
+  return true;
+}
+
+const findCorner = () => {
+  const targetSquare = [];
+
+  cornerSquare.forEach(i => {
+    targetSquare.push(squares[i]);
+  })
+
+  const availSquares = targetSquare.filter(el => {
+    return !el.classList.contains("selected");
+  })
+
+  if(availSquares.length === 0)
+    return false
+  
+  const index = getRandomInt(availSquares.length-1);
+  availSquares[index].innerHTML = player === 0 ? "X" : "O";
+  availSquares[index].classList.add("selected", "by_cpu");
+
+  return true;
+}
+
+const findWin = () => {
+  
+}
+
+const findBlock = () => {
+
+}
+
+const cpuTurn = (lastMove) => {
   if(player === 0)
     return
 
   disableClick();
 
   setTimeout(() => {
-    const availSquares = document.querySelectorAll(".container .square:not(.selected)");
+    if(!findCenter())
+      if(!findCorner())
+        findRandom();
 
-    if(availSquares.length === 0)
-      return
-
-    const index = getRandomInt(availSquares.length-1);
-    availSquares[index].innerHTML = player === 0 ? "X" : "O";
-    availSquares[index].classList.add("selected", "by_cpu");
-    
     if(checkWin()) {
       p2Score += 1;
       updateData();
@@ -168,16 +217,16 @@ const cpuTurn = () => {
     checkDraw();
     switchTurn();
     enableClick();
-  }, 2000)
+  }, 1000)
 }
 
-squares.forEach(square => {
-  square.addEventListener("click", () => {
-    if(square.classList.contains("selected"))
+for(let i = 0; i < squaresLength; i++) {
+  squares[i].addEventListener("click", () => {
+    if(squares[i].classList.contains("selected"))
       return
 
-    square.innerHTML = player === 0 ? "X" : "O";
-    square.classList.add("selected", dualPlayer ? `by_player${player}` : "by_player");
+    squares[i].innerHTML = player === 0 ? "X" : "O";
+    squares[i].classList.add("selected", dualPlayer ? `by_player${player}` : "by_player");
     
     if(checkWin()) {
       player === 0 ? p1Score += 1 : p2Score += 1;
@@ -189,6 +238,6 @@ squares.forEach(square => {
     switchTurn();
 
     if(!dualPlayer)
-      cpuTurn();
+      cpuTurn(i);
   })
-})
+}
