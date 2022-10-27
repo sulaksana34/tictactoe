@@ -159,7 +159,6 @@ const findRandom = () => {
 }
 
 const findCenter = () => {
-  console.log("findCenter() init");
   if(squares[4].classList.contains("selected"))
     return false;
 
@@ -170,7 +169,6 @@ const findCenter = () => {
 }
 
 const findCorner = () => {
-  console.log("findCorner() init");
   const targetSquare = [];
 
   cornerSquare.forEach(i => {
@@ -197,7 +195,6 @@ const checkSelected = (i) => {
 }
 
 const findBlock = (idx) => {
-  console.log("findBlock() init");
   let nextStep;
 
   switch(idx) {
