@@ -159,7 +159,7 @@ body {
     height: auto;
     aspect-ratio: 1;
     margin: 3vh auto;
-    grid-template: repeat(3, auto) / repeat(3, auto);
+    grid-template: repeat(3, 33.33%) / repeat(3, 33.33%);
   }
 
   .divider {

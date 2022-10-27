@@ -1,5 +1,5 @@
 /**
- * TicTacToe v1.2.2
+ * TicTacToe v1.2.3
  * 
  * TicTacToe is a two-player game in which the objective
  * is to take turns and mark the correct spaces in a 3x3 grid.
