@@ -99,7 +99,7 @@ const getRandomInt = (max) => {
   return Math.floor(Math.random() * max);
 }
 
-checkWin = () => {
+const checkWin = () => {
   winPattern.forEach(patterns => {
     if(winCounter === 3)
       return
