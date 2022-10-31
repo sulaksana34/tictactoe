@@ -154,6 +154,10 @@ body {
     margin: 3vh auto 0px;
   }
 
+  .scoreboard {
+    width: calc(100% - 10vh);
+  }
+
   .container {
     width: 100%;
     height: auto;
